@@ -1,0 +1,111 @@
+ var additive = Jdata.data.additive.map(function(item){
+				    		return {"name": item, "value":"100"}
+				    	});
+					 
+			    	console.log(JSON.stringify(additive[0]));
+			    	var addStr=new String();
+			    	addStr+="[";
+			    	for(var i=0;i<additive.length;i++)
+			    	{
+			    		if(i!=additive.length-1)
+			    			addStr+=JSON.stringify(additive[i])+",";
+			    		else
+			    			addStr+=JSON.stringify(additive[i]);
+			    	}
+			    	addStr+="]";
+			    	
+					   console.log(addStr);
+					    var relInfo = Jdata.data.relInfo.map(function(item){
+				    		return {"name": item, "value":"100"}
+				    	});
+				    	
+					    
+					    var relStr=new String();
+					    relStr+="[";
+				    	for(var i=0;i<relInfo.length;i++)
+				    	{
+				    		if(i!=relInfo.length-1)
+				    			relStr+=JSON.stringify(relInfo[i])+",";
+				    		else
+				    			relStr+=JSON.stringify(relInfo[i]);
+				    	}
+				    	relStr+="]";
+				    	console.log(relStr);
+				    	
+					    
+					    function graph(ProductName,placeOfOrigin,manuAddress,agents,importer,additive,relInfo){
+					    	
+					    	
+					    	var template = {
+					    			 "name": ProductName, "value":"200",
+					    			 "children": [
+					    			  {
+					    			   "name": "進口商",
+					    			   "value":"200",
+					    			   "children": [
+					    			  {"name": importer,"value":"100"}
+					    			   
+					    			  
+					    			  ]
+					    			  },
+					    			   {
+					    			   "name": "商家",
+					    			   "value":"200",
+					    			   "children": [
+					    			  {"name": agents,"value":"100"}
+					    			   
+					    			  
+					    			  ]
+					    			  },
+					    			   {
+					    			   "name": "原產地",
+					    			   "value":"200",
+					    			   "children": [
+					    			  {"name": placeOfOrigin,"value":"100"}
+					    			   
+					    			  
+					    			  ]
+					    			   
+					    			  },
+					    			   {
+					    			   "name": "製造商地址",
+					    			   "value":"200",
+					    			   "children": [
+					    			  {"name": manuAddress,"value":"100"}
+					    			   
+					    			  
+					    			  ]
+					    			   
+					    			  },
+					    			   {
+					    			   "name": "相關資訊",
+					    			   "value":"200",
+					    			   "children": relStr
+					    			   
+					    			  },
+					    			   {
+					    			   "name": "添加劑",
+					    			   "value":"200",
+					    			   "children": addStr
+					    			  }
+					    			  
+					    			 ]
+					    			}
+					    
+					    	return template;
+					   }
+					    
+					   graphObj = graph(Jdata.data.ProductName,
+					    					Jdata.data.placeOfOrigin,
+					    					Jdata.data.manuAddress,
+					    					Jdata.data.agents,
+					    					Jdata.data.importer,
+					    					additive,
+					    					relInfo
+					    					);
+					  
+			    	console.log(JSON.stringify(graphObj));
+			    	var str =JSON.stringify(graphObj);
+			    	str=str.replace("////g","");
+			    	console.log(str);
+			    

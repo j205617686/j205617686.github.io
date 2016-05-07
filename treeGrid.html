@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="treeGridTest">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- for local development -->    
+    <!-- <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./src/treeGrid.css">    
+     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css"></link>
+	
+    
+<script>
+
+
+
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+		
+		
+		
+
+
+</script>
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </head>
+  <body ng-controller="treeGridController" style="margin:20px">
+   
+    <div ng-model="showMinDir" ng-value="false">
+        
+       
+        <div ng-show="!showMinDir">
+           
+         
+           
+            <tree-grid tree-data="tree_data" tree-control="my_tree" col-defs="col_defs" expand-on="expanding_property" on-select="my_tree_handler(branch)" expand-level="0" icon-leaf= "glyphicon glyphicon-globe"></tree-grid>
+        </div>
+       
+    </div>
+    <script src="./js/angular.js"></script>
+    <!-- for local development -->
+    <!--
+        <script src="../lib/angular/angular.min.js"></script>
+    -->
+    <script src="./src/tree-grid-directive.js"></script>    
+   
+    <script>
+    </script>
+  </body>
+</html>
