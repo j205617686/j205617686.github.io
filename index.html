@@ -1,8 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<style>
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+   
+<html xmlns = "http://www.w3.org/1999/xhtml">
+   <head>
+     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css"></link>
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+	
+	
+	<script src="dist/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="dist/sweetalert.css"></link>
+
+	<title>Food Reflection Search Engine</title>
+	
+<style type="text/css">
+	
+body {
+
+font-family:Tahoma,"維軟正黑體";
+font-color:#0000C6;
+background-color:#ADFEDC;
+
+}
+
+
 
 .node circle {
   cursor: pointer;
@@ -27,25 +49,314 @@ a {
 text-decoration:none;
 
 }
- 
+
+.title {
+font-family:Tahoma,"維軟正黑體";
+font-color:#0000C6;
+
+}
+	
+	
+#left {
+
+width:40%;
+
+
+float:left;
+}
+
+#right {
+
+width:60%;
+
+float:left;
+}
+
+.main {
+
+background-color:#ADFEDC;
+
+}
+
+.sweet-alert {
+
+background:#d5e6c7;
+width:700px;
+height:800px;
+}
+.sweet-alert button {
+
+background:#145C9E !important;
+}
+	
+	
 </style>
+	
+	
+	
+	<script type="text/javascript">	
+	
+	
+$(document).ready(function() {
+	
+	
+	var dataf ='keyword=' + $('#keyword_input').val();	
+	$.ajax({
+		  url: "http://140.121.197.132:8079/fim/getProductByKeyword",
+		  type: "POST",
+		  contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		  data: dataf,
+		  dataType: "JSON",
+		  success: function(Jdata) {
+					
+			  
+			  if(Jdata.data.length!=0)
+			    {
+					var rfew = $(ar);
+					$("#ar").empty();
+					console.log(Jdata);
+					console.log(Jdata.data);
+					
+					$.each(Jdata.data, function(key, value) {
+					console.log(JSON.stringify(value));
+					
+					var singleList = $("<li><a id='"+value.barcode+"' href=''><h2>"+value.ProductName+"</h2><p>"+value.agents+"</p></a></li>");
+		               
+					 console.log(singleList);
+						rfew.append(singleList);
+						
+						$('ul').listview('refresh');
+					});
+					
+					$.each (Jdata.data, function (i) {
+						
+						
+						
+						 $("#"+Jdata.data[i].barcode).click(function() {
+							 console.log(Jdata.data[i].barcode);
+							 root="";
+							 update();
+							 
+							 
+							
 
+							 
+							 var url="http://140.121.197.132:8079/fim/getD3JSONServlet?barcode="+Jdata.data[i].barcode;
+							 
+							 console.log(url);
+							 
+							
+							 d3.json(url, function(error, json) {
+								  if (error) throw error;
 
+								
+								 
+								  root=json;
+								  update();
+								});
+						  });
+						 
+						
+						 
+						 
+					});
+					
+				
+					
+					
+					
+					
+					
+					
+		    
+		   }else
+		    {
+			   $("#result").html("<p>沒有找到任何資料!!</p>")
+		    
+		    	
+		    }	
+					
+			  
+			  	
+					
+					
+					
+		  },
+		  
+		  error: function() {
+		    alert("ERROR!!!");
+		  }
+		});
+	
+	
+	
+	
+	
+	
+	
+    $('#submit').click(
+   function() {
+            	var dataf ='keyword=' + $('#keyword_input').val();	
+            	
+	$.ajax({
+  url: "http://140.121.197.132:8079/fim/getProductByKeyword",
+  type: "POST",
+  contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+  data: dataf,
+  dataType: "JSON",
+  success: function(Jdata) {
+			
+	  
+	  console.log(Jdata);
+			
+			  if(Jdata.data.length!=0)
+			    {
 
+					var rfew = $(ar);
+					$("#ar").empty();
+					console.log(Jdata);
+					console.log(Jdata.data);
+					
+					$.each(Jdata.data, function(key, value) {
+					console.log(JSON.stringify(value));
+					
+					var singleList = $("<li><a id='"+value.barcode+"' href=''><h2>"+value.ProductName+"</h2><p>"+value.agents+"</p></a></li>");
+		                 
+					 console.log(singleList);
+						rfew.append(singleList);
+						
+						$('ul').listview('refresh');
+					});
+					
+					$.each (Jdata.data, function (i) {
+						
+						
+						
+						 $("#"+Jdata.data[i].barcode).click(function() {
+							 console.log(Jdata.data[i].barcode);
+							 root="";
+							 update();
+							 
+							 
+							
 
+							 
+							 var url="http://140.121.197.132:8079/fim/getD3JSONServlet?barcode="+Jdata.data[i].barcode;
+							 
+							 console.log(url);
+							 
+							
+							 d3.json(url, function(error, json) {
+								  if (error) throw error;
 
+								
+								 
+								  root=json;
+								  update();
+								});
+						  });
+					});
+					
+					
+					
+		    
+		   }else
+		    {
+			   $("#result").html("<p>沒有找到任何資料!!</p>")
+		    
+		    	
+		    }	
+			
+    
+			
+  },
+  
+  error: function() {
+    alert("ERROR!!!");
+  }
+});
+            });
+            });
+            
+            
+            
+            
+            
+            
+            
+            
 
- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css"></link>
-	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-
-
+            
+            
+            
+            
+            
+            
+            
+            
+</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </head>
-<body>
-      <h1 id='title'>Welcome to FIM WebSite Change2</h1>
-	  <p id='title'></p>
+   <body>
+		 
+	<div data-role="page">
+    
+    
+   
+    
+      <!-- /header -->
+      <div data-role="content">
+        
+        <div id='left'>
+        <h1 class='title'>Food Reflection Search Engine</h1>
+        
+				<input name="keyword_input" id="keyword_input" type = "text"  required placeholder="請輸入關鍵字"  />
+				<input type="button" id="submit" value="submit" />
 
+				 <div id='result'>
+		 <ul id="ar" data-role="listview" data-inset="true" data-icon="false">
+		 </ul>
+		 </div>
+				
 
+		 
+		  </div>
+		 
+		 
+		   <div id='right'>
+		   <p id='goto'></p>
+		   </div>
+		 
+		 
+      </div>
+      <!-- /content -->
+   
+    <!-- /page -->
+    
+   
+    
+    
+   
+    
+    
+    
+		</div>
+		
+		
 	<script>
 
 (function ($) {
@@ -88,7 +399,7 @@ var force = d3.layout.force()
     .size([width, height])
     .on("tick", tick);
 
-var svg = d3.select("div").append("svg")
+var svg = d3.select("#right").append("svg")
     .attr("width", width)
     .attr("height", height);
 
@@ -176,8 +487,17 @@ function update() {
       if(d.link!=undefined)
     	{ 
     	  console.log(d.link);
-    	  d3.select("p").html ("前往     " + "<a href='" + d.link + "' >"  + d.name + " 詳細資訊"+ "</a>" ); }
-      
+    	  d3.select("#goto").html ("前往     " + "<a href='" + d.link + "' >"  + d.name + " 詳細資訊"+ "</a>" ); 
+    	  
+    	  
+    	  swal({title: 
+    		  "<strong style='color:#145C9E;'>"+d.name+"</strong>",   
+    		  text: "<iframe src="+d.link+" width='600px' height='600px' frameborder='0' style='overflow: hidden'></iframe>",   
+    		  html: true });
+    	  
+    	  
+    	}
+     
       
       
       
@@ -279,9 +599,14 @@ function flatten(root) {
   return nodes;
 }
 
-</script>
-
-
-</body>
+</script>		
+		
+		
+    
+		
+		
+		
+		
+		
+	</body>
 </html>
-
